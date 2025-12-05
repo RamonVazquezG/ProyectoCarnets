@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ProyectoCarnets.Models.Carnet>
+
+<h3>Listado de Carnets</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Matricula del alumno</th>
+            <th>Programa Educativo</th>
+            <th>Clave de Actividad</th>
+            <th>Fecha de Registro</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.AlumnoMatricula</td>
+                <td>@item.ProgramaEducativoId</td>
+                <td>@item.ActividadComplementariaClave</td>
+                <td>@item.FechaRegistro</td>
+            </tr>
+        }
+    </tbody>
+</table>

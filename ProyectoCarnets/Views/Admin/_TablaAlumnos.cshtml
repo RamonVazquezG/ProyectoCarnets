@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ProyectoCarnets.Models.Alumno>
+
+<h3>Listado de Alumnos</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Matrícula</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Matricula</td>
+                <td>@item.Nombre</td>
+            </tr>
+        }
+    </tbody>
+</table>

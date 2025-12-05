@@ -1,0 +1,72 @@
+﻿@model ProyectoCarnets.Models.Carnet
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label>Matrícula</label>
+        <input asp-for="AlumnoMatricula" id="inputMatricula" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Nombre del Alumno</label>
+        <input type="text" id="txtNombreAlumno" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Programa Educativo</label>
+        <select asp-for="ProgramaEducativoId" id="selectPrograma" class="form-control">
+            <option value="">-- Escribe una matrícula primero --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Programa Seleccionado</label>
+        <input type="text" id="txtNombrePrograma" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Actividad</label>
+        <select asp-for="ActividadComplementariaClave" asp-items="ViewBag.Actividades" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+<script>
+    document.getElementById('inputMatricula').addEventListener('change', function() {
+        var matricula = this.value;
+
+        // Llamada al servidor (AJAX)
+        fetch('/Carnets/GetAlumnoInfo?matricula=' + matricula)
+            .then(response => {
+                if (!response.ok) throw new Error("Alumno no encontrado");
+                return response.json();
+            })
+            .then(data => {
+                // 1. Rellenar Nombre automáticamente
+                document.getElementById('txtNombreAlumno').value = data.nombre;
+
+                // 2. Limpiar y rellenar el Dropdown de Programas
+                var select = document.getElementById('selectPrograma');
+                select.innerHTML = '<option value="">-- Selecciona --</option>';
+
+                // Aquí ocurre el filtro: solo mostramos los programas que trajo la API
+                data.programas.forEach(prog => {
+                    var option = document.createElement('option');
+                    option.value = prog.id;
+                    option.text = prog.id + " - " + prog.nombre; // Formato "ID - Nombre"
+                    option.dataset.nombre = prog.nombre; // Guardamos el nombre para usarlo luego
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => {
+                alert("Alumno no encontrado o sin programas asignados");
+                document.getElementById('txtNombreAlumno').value = "";
+            });
+    });
+
+    // Lógica para rellenar el campo "Nombre de Programa" al seleccionar del dropdown
+    document.getElementById('selectPrograma').addEventListener('change', function() {
+        var nombrePrograma = this.options[this.selectedIndex].dataset.nombre;
+        document.getElementById('txtNombrePrograma').value = nombrePrograma || "";
+    });
+</script>

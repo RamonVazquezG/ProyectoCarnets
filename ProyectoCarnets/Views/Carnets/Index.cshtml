@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Panel de Administración";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Administración de Carnets</h1>
+    <p>Selecciona una tabla para visualizar los datos.</p>
+</div>
+
+<div class="btn-group d-flex justify-content-center mb-4" role="group">
+    <button type="button" class="btn btn-outline-primary" onclick="cargarTabla('GetTablaAlumnos')">Ver Alumnos</button>
+    <button type="button" class="btn btn-outline-success" onclick="cargarTabla('GetTablaProgramas')">Ver Programas</button>
+    <button type="button" class="btn btn-outline-dark" onclick="cargarTabla('GetTablaCarnets')">Ver Carnets Capturados</button>
+</div>
+
+<div id="contenedor-tabla" class="border p-3 shadow-sm rounded" style="min-height: 200px;">
+    <div class="text-muted text-center mt-5">Selecciona una opción arriba para comenzar</div>
+</div>
+
+@section Scripts {
+    <script>
+        function cargarTabla(accion) {
+            // 1. Mostramos un texto de "Cargando..."
+            document.getElementById('contenedor-tabla').innerHTML = '<div class="text-center p-4"><div class="spinner-border" role="status"></div><p>Cargando datos...</p></div>';
+
+            // 2. Pedimos la tabla al servidor
+            fetch('/Admin/' + accion)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la red');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    // 3. Pegamos el HTML recibido en el contenedor
+                    document.getElementById('contenedor-tabla').innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('contenedor-tabla').innerHTML = '<div class="alert alert-danger">Error al cargar los datos.</div>';
+                    console.error('Hubo un problema:', error);
+                });
+        }
+    </script>
+}
