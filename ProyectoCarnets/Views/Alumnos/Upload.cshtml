@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Cargar Alumnos desde CSV";
+}
+
+<h2>Cargar Archivo CSV</h2>
+
+<form asp-action="Upload" asp-controller="Alumnos" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <label for="archivo">Selecciona el archivo CSV</label>
+        <input type="file" name="archivo" class="form-control" accept=".csv" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cargar</button>
+</form>
+
+<hr />
+
+@if (ViewBag.Resultados != null)
+{
+    <h3>Resultados</h3>
+
+    <div class="alert alert-success">
+        <strong>@ViewBag.Resultados.ImportadosCorrectos</strong> alumnos importados correctamente.
+    </div>
+
+    @if (ViewBag.Resultados.Errores.Count > 0)
+    {
+        <div class="alert alert-danger">
+            <strong>@ViewBag.Resultados.Errores.Count</strong> errores encontrados:
+            <ul>
+                @foreach (var err in ViewBag.Resultados.Errores)
+                {
+                    <li>@err</li>
+                }
+            </ul>
+        </div>
+    }
+}

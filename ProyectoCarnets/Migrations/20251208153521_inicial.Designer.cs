@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoCarnets.Services;
 
@@ -11,9 +12,11 @@ using ProyectoCarnets.Services;
 namespace ProyectoCarnets.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251208153521_inicial")]
+    partial class inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +45,6 @@ namespace ProyectoCarnets.Migrations
             modelBuilder.Entity("ProyectoCarnets.Models.Alumno", b =>
                 {
                     b.Property<int>("Matricula")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApellidoMaterno")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ApellidoPaterno")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Etapa")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -123,9 +117,6 @@ namespace ProyectoCarnets.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Clave")
-                        .HasColumnType("int");
 
                     b.Property<string>("NombrePrograma")
                         .IsRequired()

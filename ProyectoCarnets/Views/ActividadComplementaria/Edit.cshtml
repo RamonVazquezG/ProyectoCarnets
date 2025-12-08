@@ -1,0 +1,27 @@
+﻿@model ProyectoCarnets.Models.ActividadComplementaria
+
+@{
+    ViewData["Title"] = "Editar Actividad";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Clave" />
+
+    <div class="form-group">
+        <label asp-for="NombreActividad"></label>
+        <input asp-for="NombreActividad" class="form-control" />
+        <span asp-validation-for="NombreActividad" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-controller="Carnets" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
