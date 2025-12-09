@@ -33,7 +33,8 @@ namespace ProyectoCarnets.Controllers
             var carnet = await _context.Carnets.FindAsync(id);
             if (carnet == null) return NotFound();
 
-            ViewBag.Actividades = new SelectList(_context.ActividadesComplementarias, "Clave", "NombreActividad", carnet.ActividadComplementariaClave);
+            ViewBag.Actividades = _context.ActividadesComplementarias.ToList();
+
             ViewBag.Programas = _context.ProgramasEducativos.ToList();
 
             return View(carnet);
@@ -54,11 +55,7 @@ namespace ProyectoCarnets.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Actividades = new SelectList(
-                    _context.ActividadesComplementarias,
-                    "Clave",
-                    "NombreActividad",
-                    carnet.ActividadComplementariaClave);
+                ViewBag.Actividades = _context.ActividadesComplementarias.ToList();
 
                 ViewBag.Programas = _context.ProgramasEducativos.ToList();
                 return View(carnet);

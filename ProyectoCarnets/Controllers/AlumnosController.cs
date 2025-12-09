@@ -123,6 +123,13 @@ namespace ProyectoCarnets.Controllers
             return RedirectToAction("Index", "Carnets");
         }
 
+        // GET: Alumnos/Upload
+        [HttpGet]
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
 
         // ============================
         //  POST: /Alumnos/Upload
