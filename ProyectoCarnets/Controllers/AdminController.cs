@@ -21,11 +21,22 @@ public class AdminController : Controller
 
     // 2. Acción para obtener la tabla de Alumnos (Partial View)
     [HttpGet]
-    public IActionResult GetTablaAlumnos()
+    public IActionResult GetTablaAlumnos(int? matricula)
     {
-        var alumnos = _context.Alumnos.ToList();
+        var query = _context.Alumnos.AsQueryable();
+
+        if (matricula.HasValue)
+        {
+            query = query.Where(a => a.Matricula == matricula.Value);
+        }
+
+        var alumnos = query.ToList();
+
+        ViewBag.Matricula = matricula;
+
         return PartialView("_TablaAlumnos", alumnos);
     }
+
 
     // 3. Acción para obtener Programas
     [HttpGet]
@@ -37,15 +48,30 @@ public class AdminController : Controller
 
     // 4. Acción para obtener Carnets (Incluyendo datos relacionados con Include)
     [HttpGet]
-    public IActionResult GetTablaCarnets()
+    [HttpGet]
+    public IActionResult GetTablaCarnets(string? search)
     {
         var carnets = _context.Carnets
             .Include(c => c.Alumno)
             .Include(c => c.ProgramaEducativo)
             .Include(c => c.ActividadComplementaria)
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            carnets = carnets.Where(c =>
+                c.Alumno.Nombre.Contains(search) ||
+                c.Alumno.Matricula.ToString().Contains(search)
+            );
+        }
+
+        var lista = carnets
             .OrderByDescending(c => c.FechaRegistro)
             .ToList();
-        return PartialView("_TablaCarnets", carnets);
+
+        ViewBag.Search = search;
+
+        return PartialView("_TablaCarnets", lista);
     }
 
     // 4. Acción para obtener actividades complementarias
@@ -55,4 +81,20 @@ public class AdminController : Controller
         var actividades = _context.ActividadesComplementarias.ToList();
         return PartialView("_TablaActividades", actividades);
     }
+
+    [HttpGet]
+    public IActionResult BuscarAlumnos(string matricula)
+    {
+        var query = _context.Alumnos.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(matricula))
+        {
+            query = query.Where(a => a.Matricula.ToString().Contains(matricula));
+        }
+
+        var alumnos = query.ToList();
+
+        return PartialView("_TablaAlumnos", alumnos);
+    }
+
 }

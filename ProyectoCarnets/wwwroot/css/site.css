@@ -29,3 +29,60 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+:root {
+    --verde-uni: #00723f;
+    --amarillo-uni: #febe10;
+    --texto-blanco: #ffffff;
+}
+
+.navbar {
+    background-color: var(--verde-uni) !important;
+}
+
+    .navbar .navbar-brand,
+    .navbar .nav-link {
+        color: var(--texto-blanco) !important;
+        font-weight: 600;
+    }
+
+        .navbar .nav-link:hover {
+            color: var(--amarillo-uni) !important;
+        }
+
+.btn-primary {
+    background-color: var(--verde-uni) !important;
+    border-color: var(--verde-uni) !important;
+    color: var(--texto-blanco) !important;
+    font-weight: bold;
+}
+
+    .btn-primary:hover {
+        background-color: #005a32 !important;
+    }
+
+.btn-warning {
+    background-color: var(--amarillo-uni) !important;
+    border-color: var(--amarillo-uni) !important;
+    color: #000000 !important;
+    font-weight: bold;
+}
+
+.form-control:focus {
+    border-color: var(--verde-uni);
+    box-shadow: 0 0 0 0.15rem rgba(0, 114, 63, 0.4);
+}
+
+#contenedor-tabla {
+    border: 2px solid var(--verde-uni);
+    border-radius: 8px;
+}
+
+.table thead {
+    background-color: var(--verde-uni);
+    color: var(--texto-blanco);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 114, 63, 0.1);
+}

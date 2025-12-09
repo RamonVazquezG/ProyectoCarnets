@@ -10,19 +10,35 @@ namespace ProyectoCarnets.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CarnetsController(ApplicationDbContext context)
+        public CarnetsController(ApplicationDbContext context) 
         {
             _context = context;
         }
 
         // GET: Carnets
-        public IActionResult Index()
+        public IActionResult Index(string? search)
         {
             var carnets = _context.Carnets
+                .Include(c => c.Alumno)
+                .Include(c => c.ProgramaEducativo)
+                .Include(c => c.ActividadComplementaria)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                carnets = carnets.Where(c =>
+                    c.Alumno.Nombre.Contains(search) ||
+                    c.Alumno.Matricula.ToString().Contains(search)
+                );
+            }
+
+            var lista = carnets
                 .OrderByDescending(c => c.Id)
                 .ToList();
 
-            return View(carnets);
+            ViewBag.Search = search; 
+
+            return View(lista);
         }
 
         // GET: Carnets/Edit/5

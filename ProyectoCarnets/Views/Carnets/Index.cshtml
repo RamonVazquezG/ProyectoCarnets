@@ -17,38 +17,60 @@
 <div id="contenedor-tabla" class="border p-3 shadow-sm rounded" style="min-height: 200px;">
     <div class="text-muted text-center mt-5">Selecciona una opción arriba para comenzar</div>
 </div>
+
 @section Scripts {
     <script>
+
         function cargarTabla(accion) {
-            // 1. Mostramos un texto de "Cargando..."
-            document.getElementById('contenedor-tabla').innerHTML = '<div class="text-center p-4"><div class="spinner-border" role="status"></div><p>Cargando datos...</p></div>';
+            document.getElementById('contenedor-tabla').innerHTML =
+                '<div class="text-center p-4"><div class="spinner-border"></div><p>Cargando...</p></div>';
 
-            // 2. Pedimos la tabla al servidor
             fetch('/Admin/' + accion)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la red');
-                    }
-                    return response.text();
-                })
+                .then(r => r.text())
                 .then(html => {
-                    // 3. Pegamos el HTML recibido en el contenedor
                     document.getElementById('contenedor-tabla').innerHTML = html;
-                })
-                .catch(error => {
-                    document.getElementById('contenedor-tabla').innerHTML = '<div class="alert alert-danger">Error al cargar los datos.</div>';
-                    console.error('Hubo un problema:', error);
                 });
         }
 
-        // Si hay tabla marcada en TempData, la cargamos al inicio
-        @if (TempData["TablaParaCargar"] != null)
-        {
-                <text>
-                document.addEventListener("DOMContentLoaded", function() {
-                    cargarTabla("@TempData["TablaParaCargar"]");
+        document.addEventListener("click", function (e) {
+
+            if (e.target.classList.contains("btnBuscarAlumno")) {
+                let matricula = document.getElementById("txtMatricula").value.trim();
+
+                fetch(`/Admin/BuscarAlumnos?matricula=${encodeURIComponent(matricula)}`)
+                    .then(r => r.text())
+                    .then(html => {
+                        document.getElementById("contenedor-tabla").innerHTML = html;
+                    });
+            }
+
+            if (e.target.classList.contains("btnLimpiarAlumno")) {
+                fetch(`/Admin/GetTablaAlumnos`)
+                    .then(r => r.text())
+                    .then(html => {
+                        document.getElementById("contenedor-tabla").innerHTML = html;
+                    });
+            }
+
+                  if (e.target.classList.contains("btnBuscarCarnet")) {
+            let matricula = document.getElementById("txtBuscarMatriculaCarnet").value.trim();
+
+            fetch(`/Admin/GetTablaCarnets?search=${encodeURIComponent(matricula)}`)
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById("contenedor-tabla").innerHTML = html;
                 });
-                </text>
         }
+
+              if (e.target.classList.contains("btnLimpiarCarnet")) {
+                 fetch(`/Admin/GetTablaCarnets`)
+                    .then(r => r.text())
+                    .then(html => {
+                        document.getElementById("contenedor-tabla").innerHTML = html;
+                    });
+        }
+
+        });
+
     </script>
 }

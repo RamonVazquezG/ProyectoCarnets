@@ -1,9 +1,22 @@
 ﻿@model IEnumerable<ProyectoCarnets.Models.Alumno>
 
 <h3>Listado de Alumnos</h3>
-<a asp-controller="Alumnos" asp-action="Create" class="btn btn-success">Registrar Alumnos</a>
 
-<table class="table table-striped">
+<a asp-controller="Alumnos" asp-action="Create" class="btn btn-success mb-3">
+    Registrar Alumnos
+    </a>
+
+<div class="input-group mb-3" style="max-width: 450px;">
+    <input type="text"
+           id="txtMatricula"
+           class="form-control"
+           placeholder="Buscar por matrícula..."
+           value="@ViewBag.Search" />
+    <button class="btn btn-primary btnBuscarAlumno">Buscar</button>
+    <button class="btn btn-secondary btnLimpiarAlumno">Limpiar</button>
+</div>
+
+<table class="table table-striped mt-3">
     <thead>
         <tr>
             <th>Matrícula</th>
