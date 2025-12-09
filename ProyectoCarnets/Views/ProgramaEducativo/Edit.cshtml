@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ProyectoCarnets.Models.ProgramaEducativo
+
 @{
+    ViewData["Title"] = "Editar Programa Educativo";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Editar Programa Educativo</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Clave" class="control-label fw-bold">Clave del Programa</label>
+                    <input asp-for="Clave" class="form-control" type="number" placeholder="Ej. 110" />
+                    <span asp-validation-for="Clave" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="NombrePrograma" class="control-label fw-bold">Nombre del Programa</label>
+                    <input asp-for="NombrePrograma" class="form-control" placeholder="Ej. Ingeniería en Sistemas" />
+                    <span asp-validation-for="NombrePrograma" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Carnets" asp-action="Index" class="btn btn-secondary">
+                        Regresar
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
