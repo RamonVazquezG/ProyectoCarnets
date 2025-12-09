@@ -1,0 +1,47 @@
+﻿@model ProyectoCarnets.Models.Alumno
+
+@{
+    ViewData["Title"] = "Crear Alumno";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Matricula"></label>
+        <input asp-for="Matricula" class="form-control" />
+        <span asp-validation-for="Matricula" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nombre"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ApellidoPaterno"></label>
+        <input asp-for="ApellidoPaterno" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ApellidoMaterno"></label>
+        <input asp-for="ApellidoMaterno" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Etapa"></label>
+        <select asp-for="Etapa" class="form-control" asp-items="Html.GetEnumSelectList<ProyectoCarnets.Models.Etapa>()"></select>
+        <span asp-validation-for="Etapa" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Crear</button>
+    <a asp-controller="Carnets" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

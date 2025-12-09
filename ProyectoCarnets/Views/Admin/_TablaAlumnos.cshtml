@@ -1,11 +1,17 @@
 ﻿@model IEnumerable<ProyectoCarnets.Models.Alumno>
 
 <h3>Listado de Alumnos</h3>
+<a asp-controller="Alumnos" asp-action="Create" class="btn btn-success">Registrar Alumnos</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Matrícula</th>
             <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Etapa</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -14,6 +20,12 @@
             <tr>
                 <td>@item.Matricula</td>
                 <td>@item.Nombre</td>
+                <td>@item.ApellidoPaterno</td>
+                <td>@item.ApellidoMaterno</td>
+                <td>@item.Etapa</td>
+                <td>
+                    <a asp-controller="Alumnos" asp-action="Edit" asp-route-id="@item.Matricula" class="btn btn-sm btn-primary">Editar</a>
+                </td>
             </tr>
         }
     </tbody>

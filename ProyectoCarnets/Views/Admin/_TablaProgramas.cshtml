@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<ProyectoCarnets.Models.ProgramaEducativo>
 
 <h3>Listado de Programas Educativos</h3>
+<a asp-controller ="ProgramaEducativo" asp-action="Create" class="btn btn-success">Nuevo programa educativo</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
+            <th>Clave</th>
             <th>Programa Educativo</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -13,7 +17,12 @@
         {
             <tr>
                 <td>@item.Id</td>
+                <td>@item.Clave</td>
                 <td>@item.NombrePrograma</td>
+                <td>
+                    <a asp-controller="ProgramaEducativo" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Editar</a>
+                    <a asp-controller="ProgramaEducativo" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
             </tr>
         }
     </tbody>

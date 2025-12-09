@@ -1,0 +1,25 @@
+﻿@model ProyectoCarnets.Models.ActividadComplementaria
+
+@{
+    ViewData["Title"] = "Eliminar Actividad";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>¿Está seguro de que desea eliminar esta actividad?</h4>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Clave</dt>
+        <dd class="col-sm-10">@Model.Clave</dd>
+
+        <dt class="col-sm-2">Nombre de Actividad</dt>
+        <dd class="col-sm-10">@Model.NombreActividad</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Clave" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-controller="Carnets" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

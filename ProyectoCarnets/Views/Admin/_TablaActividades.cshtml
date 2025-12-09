@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ProyectoCarnets.Models.ActividadComplementaria>
+
+<h3>Listado de Actividad Complementaria</h3>
+<a asp-controller="ActividadComplementaria"  asp-action="Create" class="btn btn-success">Nueva Actividad</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>Actividad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Clave</td>
+                <td>@item.NombreActividad</td>
+                <td>
+                    <a asp-controller="ActividadComplementaria" asp-action="Edit" asp-route-id="@item.Clave" class="btn btn-sm btn-primary">Editar</a>
+                    <a asp-controller="ActividadComplementaria" asp-action="Delete" asp-route-id="@item.Clave" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

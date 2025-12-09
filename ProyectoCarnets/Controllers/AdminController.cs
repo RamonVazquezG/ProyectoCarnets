@@ -47,4 +47,12 @@ public class AdminController : Controller
             .ToList();
         return PartialView("_TablaCarnets", carnets);
     }
+
+    // 4. Acción para obtener actividades complementarias
+    [HttpGet]
+    public IActionResult GetActividadesComplementarias()
+    {
+        var actividades = _context.ActividadesComplementarias.ToList();
+        return PartialView("_TablaActividades", actividades);
+    }
 }

@@ -10,13 +10,13 @@
 <div class="btn-group d-flex justify-content-center mb-4" role="group">
     <button type="button" class="btn btn-outline-primary" onclick="cargarTabla('GetTablaAlumnos')">Ver Alumnos</button>
     <button type="button" class="btn btn-outline-success" onclick="cargarTabla('GetTablaProgramas')">Ver Programas</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="cargarTabla('GetActividadesComplementarias')">Ver Actividades Complementarias</button>
     <button type="button" class="btn btn-outline-dark" onclick="cargarTabla('GetTablaCarnets')">Ver Carnets Capturados</button>
 </div>
 
 <div id="contenedor-tabla" class="border p-3 shadow-sm rounded" style="min-height: 200px;">
     <div class="text-muted text-center mt-5">Selecciona una opción arriba para comenzar</div>
 </div>
-
 @section Scripts {
     <script>
         function cargarTabla(accion) {
@@ -39,6 +39,16 @@
                     document.getElementById('contenedor-tabla').innerHTML = '<div class="alert alert-danger">Error al cargar los datos.</div>';
                     console.error('Hubo un problema:', error);
                 });
+        }
+
+        // Si hay tabla marcada en TempData, la cargamos al inicio
+        @if (TempData["TablaParaCargar"] != null)
+        {
+                <text>
+                document.addEventListener("DOMContentLoaded", function() {
+                    cargarTabla("@TempData["TablaParaCargar"]");
+                });
+                </text>
         }
     </script>
 }

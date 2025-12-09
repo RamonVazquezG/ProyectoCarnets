@@ -1,0 +1,38 @@
+﻿@model ProyectoCarnets.Models.Carnet
+
+@{
+    ViewData["Title"] = "Editar Carnet";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="AlumnoMatricula"></label>
+        <input asp-for="AlumnoMatricula" class="form-control" readonly />
+        <span asp-validation-for="AlumnoMatricula" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProgramaEducativoId"></label>
+        <select asp-for="ProgramaEducativoId" class="form-control" asp-items="@(new SelectList(ViewBag.Programas, "Id", "NombrePrograma", Model.ProgramaEducativoId))"></select>
+        <span asp-validation-for="ProgramaEducativoId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ActividadComplementariaClave"></label>
+        <select asp-for="ActividadComplementariaClave" class="form-control" asp-items="@(new SelectList(ViewBag.Actividades, "Clave", "NombreActividad", Model.ActividadComplementariaClave))"></select>
+        <span asp-validation-for="ActividadComplementariaClave" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<ProyectoCarnets.Models.Carnet>
 
 <h3>Listado de Carnets</h3>
+<a asp-controller="Carnets"  asp-action="Create" class="btn btn-success">Registrar Carnets</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -9,6 +11,7 @@
             <th>Programa Educativo</th>
             <th>Clave de Actividad</th>
             <th>Fecha de Registro</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +23,10 @@
                 <td>@item.ProgramaEducativoId</td>
                 <td>@item.ActividadComplementariaClave</td>
                 <td>@item.FechaRegistro</td>
+                <td>
+                    <a asp-controller="Carnets" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Editar</a>
+                    <a asp-controller="Carnets" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
             </tr>
         }
     </tbody>
