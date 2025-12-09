@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProyectoCarnets.Services;
 // ... tus usings de modelos
+//prueba
 
 public class AdminController : Controller
 {
